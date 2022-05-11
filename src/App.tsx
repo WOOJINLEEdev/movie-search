@@ -1,26 +1,36 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import styled, { ThemeProvider } from 'styled-components';
 
-function App() {
+import Tab from 'components/Tab';
+import Header from 'components/Header';
+import Main from 'layout/Main';
+import { useTheme } from 'hooks/useTheme';
+
+const App = () => {
+  const { theme } = useTheme();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <Container className='App'>
+        <Header />
+        <Main />
+        <Footer />
+        <Tab />
+      </Container>
+    </ThemeProvider>
   );
-}
+};
 
 export default App;
+
+const Container = styled.div`
+  position: relative;
+  max-width: 800px;
+  min-height: 100vh;
+  margin: 0 auto;
+  background: ${(props) => props.theme.colors?.bgColor};
+  color: ${(props) => props.theme.colors?.titleColor};
+`;
+
+const Footer = styled.footer`
+  height: 100px;
+`;
