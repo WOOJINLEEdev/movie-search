@@ -6,10 +6,10 @@ declare module 'styled-components' {
       titleColor?: string;
       bgColor?: string;
       boxColor?: string;
+      borderColor?: string;
       tabBorderColor?: string;
-      dimmedColor?: string;
-      editorBgColor?: string;
-      editorTitleColor?: string;
+      tabBgColor?: string;
+      activeColor?: string;
     };
   }
 }

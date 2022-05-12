@@ -5,9 +5,8 @@ export const dark = {
     boxColor: '#808080',
     borderColor: '1px solid #e6e6e6',
     tabBorderColor: '3px solid #e6e6e6',
-    dimmedColor: 'rgba(255, 255, 255, 0.1)',
-    editorBgColor: '#000',
-    editorTitleColor: '#fff',
+    activeColor: '#f9c817',
+    tabBgColor: 'rgba(0, 0, 0, 0.2)',
   },
 };
 
@@ -18,8 +17,7 @@ export const light = {
     boxColor: '#fff',
     borderColor: '1px solid #e6e6e6',
     tabBorderColor: '3px solid #333',
-    dimmedColor: 'rgba(0, 0, 0, 0.2)',
-    editorBgColor: '#fff',
-    editorTitleColor: '#000',
+    activeColor: '#006400',
+    tabBgColor: 'rgba(0, 0, 0, 0.1)',
   },
 };
