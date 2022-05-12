@@ -2,18 +2,19 @@ import { MouseEvent, useState } from 'react';
 import { atom, useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import store from 'store';
-
-import { IResult } from 'components/List';
 import { HiOutlineBookmark } from 'react-icons/hi';
 
-interface Props {
-  result: IResult;
-}
+import { IResult } from 'components/home/List';
+import SelectModal from 'components/common/SelectModal';
 
 export const bookmarkState = atom<IResult[]>({
   key: '#bookmarkState',
   default: store.get('bookmark') || [],
 });
+
+interface Props {
+  result: IResult;
+}
 
 const Item = ({ result }: Props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -63,20 +64,17 @@ const Item = ({ result }: Props) => {
           </div>
 
           <div className='content_bookmark'>
-            <HiOutlineBookmark fill={result.bookmark ? 'green' : '#fff'} />
+            <HiOutlineBookmark fill={result.bookmark ? '#006000' : '#fff'} />
           </div>
         </div>
       </div>
 
       {isModalOpen ? (
-        <div className='btn_group'>
-          <button type='button' className='select_btn' onClick={handleSelctBtnClick}>
-            {result.bookmark === true ? '즐겨찾기 해제' : '즐겨찾기'}
-          </button>
-          <button type='button' className='cancel_btn' onClick={handleCancelBtnClick}>
-            취소
-          </button>
-        </div>
+        <SelectModal
+          isBookmark={result.bookmark}
+          handleSelctBtnClick={handleSelctBtnClick}
+          handleCancelBtnClick={handleCancelBtnClick}
+        />
       ) : (
         ''
       )}
@@ -120,7 +118,7 @@ const LiContainer = styled.li`
       .content_text {
         display: flex;
         align-items: center;
-        height: 20px;
+        min-height: 20px;
         line-height: 20px;
 
         svg {
@@ -129,9 +127,15 @@ const LiContainer = styled.li`
         }
 
         .content_title {
+          overflow: hidden;
+          display: -webkit-box;
           font-weight: bold;
           font-size: 16px;
           line-height: 20px;
+          max-height: 60px;
+          text-overflow: ellipsis;
+          -webkit-line-clamp: 3;
+          -webkit-box-orient: vertical;
         }
 
         .content_type {
@@ -165,31 +169,6 @@ const LiContainer = styled.li`
           height: 100%;
         }
       }
-    }
-  }
-
-  .btn_group {
-    position: absolute;
-    display: flex;
-    justify-content: space-evenly;
-    right: 0;
-    bottom: 10px;
-    width: 30%;
-    min-width: 180px;
-
-    .select_btn,
-    .cancel_btn {
-      width: 48%;
-      height: 50px;
-      border-radius: 5px;
-      padding: 10px 5px;
-      border: 2px solid ${(props) => props.theme.colors?.boxColor};
-      font-size: 12px;
-      color: ${(props) => props.theme.colors?.titleColor};
-    }
-
-    .select_btn {
-      width: 50%;
     }
   }
 `;

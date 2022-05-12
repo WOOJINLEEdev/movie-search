@@ -1,27 +1,17 @@
 import { useRef, FormEvent, ChangeEvent } from 'react';
-import { atom, useRecoilState } from 'recoil';
+import { atom, useRecoilState, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
+import { BsSearch } from 'react-icons/bs';
+
+import { hasNextPageState } from 'components/home/List';
 import { instance } from 'utils/http-client';
-import { BsSearch, BsFillBookmarkStarFill } from 'react-icons/bs';
+import { handleError, ISearchResults } from 'utils/api';
 
-export interface ISearch {
-  Poster: string;
-  Title: string;
-  Type: string;
-  Year: string;
-  imdbID: string;
-}
-
-export interface ISearchResults {
-  totalResults: string;
-  Search: ISearch[];
-  Response: string;
-  Error?: string;
-}
+const defaultResultsState = { Search: [], Response: '', totalResults: '' };
 
 export const resultsState = atom<ISearchResults>({
   key: '#resultsState',
-  default: { Search: [], Response: '', totalResults: '' },
+  default: defaultResultsState,
 });
 
 export const searchState = atom({
@@ -35,23 +25,26 @@ export const pageNumberState = atom({
 });
 
 const SearchForm = () => {
-  console.log('env', process.env.REACT_APP_TEST);
   const searchRef = useRef<HTMLInputElement>(null);
 
   const [search, setSearch] = useRecoilState(searchState);
   const [pageNumber, setPageNumber] = useRecoilState(pageNumberState);
   const [results, setResults] = useRecoilState<ISearchResults>(resultsState);
+  const setHasNextPageState = useSetRecoilState(hasNextPageState);
 
   function getSearchResultsApi() {
-    return instance.get(`?apikey=${process.env.REACT_APP_MOVIE_API_KEY}&s=${search}&page=${pageNumber}`);
+    return instance.get(`?apikey=${process.env.REACT_APP_MOVIE_API_KEY}&s=${search}&page=1`);
   }
 
   const loadSearchResults = async () => {
     try {
       const res = await getSearchResultsApi();
+      handleError(res.data);
+      setHasNextPageState(true);
       setResults(res.data);
+      setPageNumber(2);
     } catch (err) {
-      console.log(err);
+      setResults(defaultResultsState);
     }
   };
 
@@ -69,7 +62,7 @@ const SearchForm = () => {
   };
 
   return (
-    <FormContainer className='search_form' onSubmit={handleFormSubmit}>
+    <FormContainer onSubmit={handleFormSubmit}>
       <label htmlFor='searchInput' className='visually_hidden'>
         검색
       </label>

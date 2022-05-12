@@ -11,14 +11,16 @@ const Header = () => {
 
   const themeMode = useRecoilValue(themeStatus);
 
+  const isLightTheme = themeMode === light;
+
   return (
     <HeaderContainer>
       <Link to='/'>
         <h1 className='header_title'>Movie Search</h1>
       </Link>
 
-      <ModeBtn type='button' onClick={handleChangeTheme} aria-label={themeMode === light ? 'Light Mode' : 'Dark Mode'}>
-        {themeMode === light ? <MdOutlineLightMode /> : <MdDarkMode />}
+      <ModeBtn type='button' onClick={handleChangeTheme} aria-label={isLightTheme ? 'Light Mode' : 'Dark Mode'}>
+        {isLightTheme ? <MdOutlineLightMode /> : <MdDarkMode />}
       </ModeBtn>
     </HeaderContainer>
   );
@@ -46,8 +48,10 @@ interface IModeBtnProps {
 }
 
 const ModeBtn = styled.button<IModeBtnProps>`
-  min-width: 75.06px;
+  min-width: 50px;
   height: 100%;
+  text-align: right;
+  padding: 0;
   color: ${(props) => props.theme.colors?.titleColor};
 
   & svg {

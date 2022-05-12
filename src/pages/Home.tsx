@@ -1,7 +1,7 @@
 import { useRecoilValue } from 'recoil';
 
-import List from 'components/List';
-import SearchForm, { resultsState } from 'components/SearchForm';
+import SearchForm, { resultsState } from 'components/home/SearchForm';
+import List from 'components/home/List';
 
 const Home = () => {
   const searchResults = useRecoilValue(resultsState);
