@@ -1,16 +1,43 @@
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
 import store from 'store';
+import {
+  DragDropContext,
+  Droppable,
+  Draggable,
+  DropResult,
+  DroppableStateSnapshot,
+  DroppableProvided,
+} from 'react-beautiful-dnd';
 
-import Item, { bookmarkState } from 'components/common/Item';
+import Item from 'components/common/Item';
+import { bookmarkState } from 'state';
 
 const Bookmark = () => {
-  const myBookmark = useRecoilValue(bookmarkState);
-  const setMyBookmark = useSetRecoilState(bookmarkState);
+  const { pathname } = useLocation();
+
+  const [myBookmark, setMyBookmark] = useRecoilState(bookmarkState);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   const handleResetBtnClick = () => {
     store.remove('bookmark');
     setMyBookmark([]);
+  };
+
+  const handleDragEnd = (result: DropResult) => {
+    if (!result.destination) return;
+
+    const items = JSON.parse(JSON.stringify(myBookmark));
+    const [reorderedItem] = items.splice(result.source.index, 1);
+    items.splice(result.destination.index, 0, reorderedItem);
+
+    setMyBookmark(items);
+    store.set('bookmark', items);
   };
 
   return (
@@ -25,15 +52,33 @@ const Bookmark = () => {
         </button>
       </div>
 
-      <ul>
-        {myBookmark.length > 0 ? (
-          myBookmark.map((bookmark) => {
-            return <Item key={`bookmark_${bookmark.imdbID}`} result={bookmark} />;
-          })
-        ) : (
-          <li className='bookmark_no_data'>등록한 즐겨찾기가 없습니다.</li>
-        )}
-      </ul>
+      {myBookmark.length > 0 ? (
+        <DragDropContext onDragEnd={handleDragEnd}>
+          <Droppable droppableId='bookmark'>
+            {(provided: DroppableProvided, snapshot: DroppableStateSnapshot) => (
+              <ul
+                className={snapshot.isDraggingOver ? 'draggingOver' : ''}
+                ref={provided.innerRef}
+                {...provided.droppableProps}
+              >
+                {myBookmark?.map((bookmark, i) => {
+                  return (
+                    <Draggable key={`bookmark_${bookmark.imdbID}`} draggableId={bookmark.imdbID} index={i}>
+                      {(innerProvided) => (
+                        <Item key={`bookmark_${bookmark.imdbID}`} result={bookmark} innerProvided={innerProvided} />
+                      )}
+                    </Draggable>
+                  );
+                })}
+
+                {provided.placeholder}
+              </ul>
+            )}
+          </Droppable>
+        </DragDropContext>
+      ) : (
+        <div className='bookmark_no_data'>등록한 즐겨찾기가 없습니다.</div>
+      )}
     </SectionContainer>
   );
 };
