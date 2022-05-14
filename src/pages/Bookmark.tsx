@@ -42,12 +42,12 @@ const Bookmark = () => {
 
   return (
     <SectionContainer>
-      <h2 className='section_title'>내 즐겨찾기</h2>
+      <h2 className='sectionTitle'>내 즐겨찾기</h2>
 
-      <div className='bookmark_info'>
-        <p>{myBookmark.length > 0 ? <span className='bookmark_count'>총 {myBookmark.length}개</span> : ''}</p>
+      <div className='bookmarkInfo'>
+        <p>{myBookmark.length > 0 ? <span className='bookmarkCount'>총 {myBookmark.length}개</span> : ''}</p>
 
-        <button type='button' className='reset_btn' onClick={handleResetBtnClick}>
+        <button type='button' className='resetBtn' onClick={handleResetBtnClick}>
           전체 해제
         </button>
       </div>
@@ -77,7 +77,7 @@ const Bookmark = () => {
           </Droppable>
         </DragDropContext>
       ) : (
-        <div className='bookmark_no_data'>등록한 즐겨찾기가 없습니다.</div>
+        <div className='bookmarkNoData'>등록한 즐겨찾기가 없습니다.</div>
       )}
     </SectionContainer>
   );
@@ -89,34 +89,34 @@ const SectionContainer = styled.section`
   position: relative;
   padding: 20px;
 
-  .section_title {
-    font-size: 30px;
+  .sectionTitle {
     padding: 20px 0;
+    font-size: 30px;
   }
 
-  .bookmark_info {
+  .bookmarkInfo {
     display: flex;
     justify-content: space-between;
     padding: 20px 0;
 
-    .bookmark_count {
-      font-weight: bold;
+    .bookmarkCount {
       font-size: 18px;
+      font-weight: bold;
       line-height: 40px;
     }
 
-    .reset_btn {
+    .resetBtn {
       height: 40px;
-      background: #d4d4d4;
-      font-weight: 600;
       padding: 10px;
+      font-weight: 600;
+      background: #d4d4d4;
       border-radius: 5px;
     }
   }
 
-  .bookmark_no_data {
-    text-align: center;
+  .bookmarkNoData {
     min-height: calc(100vh - 320px);
     line-height: calc(100vh - 320px);
+    text-align: center;
   }
 `;

@@ -22,7 +22,7 @@ const Header = () => {
   return (
     <HeaderContainer>
       <Link to='/'>
-        <h1 className='header_title'>Movie Search</h1>
+        <h1 className='headerTitle'>Movie Search</h1>
       </Link>
 
       <ModeBtn type='button' onClick={handleChangeTheme} aria-label={isLightTheme ? 'Light Mode' : 'Dark Mode'}>
@@ -38,11 +38,11 @@ const HeaderContainer = styled.header`
   display: flex;
   justify-content: space-between;
   height: 50px;
-  line-height: 50px;
   padding: 0 20px;
+  line-height: 50px;
   background: ${(props) => props.theme?.colors?.bgColor};
 
-  .header_title {
+  .headerTitle {
     font-size: 20px;
     font-weight: bold;
     color: ${(props) => props.theme?.colors?.titleColor};
@@ -52,9 +52,9 @@ const HeaderContainer = styled.header`
 const ModeBtn = styled.button<IModeBtnProps>`
   min-width: 50px;
   height: 100%;
-  text-align: right;
   padding: 0;
   color: ${(props) => props.theme.colors?.titleColor};
+  text-align: right;
 
   & svg {
     width: 19px;

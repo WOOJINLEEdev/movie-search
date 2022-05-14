@@ -57,18 +57,18 @@ const Item = ({ result, innerProvided }: IProps) => {
       {...innerProvided?.draggableProps}
       {...innerProvided?.dragHandleProps}
     >
-      <div className='result_content'>
+      <div className='resultContent'>
         <img src={result.Poster} alt={result.Title} />
 
-        <div className='content_wrap'>
-          <div className='content_text'>
-            <p className='content_title'>
+        <div className='contentWrap'>
+          <div className='contentText'>
+            <p className='contentTitle'>
               {result.Title} ({result.Year})
             </p>
-            <span className={`content_type ${result.Type}`}>{capitalizeFirstLetter(result.Type)}</span>
+            <span className={`contentType ${result.Type}`}>{capitalizeFirstLetter(result.Type)}</span>
           </div>
 
-          <div className='content_bookmark'>
+          <div className='contentBookmark'>
             <HiOutlineBookmark fill={result.bookmark ? '#006000' : '#fff'} />
           </div>
         </div>
@@ -93,14 +93,14 @@ const LiContainer = styled.li`
   position: relative;
   width: 100%;
   height: 150px;
-  border-radius: 5px;
   cursor: pointer;
+  border-radius: 5px;
 
   & + & {
     margin-top: 20px;
   }
 
-  .result_content {
+  .resultContent {
     display: flex;
     justify-content: space-between;
     width: 100%;
@@ -114,13 +114,13 @@ const LiContainer = styled.li`
       border-radius: 5px;
     }
 
-    .content_wrap {
+    .contentWrap {
       display: flex;
       flex-direction: column;
       width: 80%;
       padding-left: 10px;
 
-      .content_text {
+      .contentText {
         display: flex;
         align-items: center;
         min-height: 20px;
@@ -131,27 +131,27 @@ const LiContainer = styled.li`
           height: 40px;
         }
 
-        .content_title {
-          overflow: hidden;
+        .contentTitle {
           display: -webkit-box;
-          font-weight: bold;
-          font-size: 16px;
-          line-height: 20px;
           max-height: 60px;
+          overflow: hidden;
+          font-size: 16px;
+          font-weight: bold;
+          line-height: 20px;
           text-overflow: ellipsis;
           -webkit-line-clamp: 3;
           -webkit-box-orient: vertical;
         }
 
-        .content_type {
+        .contentType {
           display: inline-block;
           padding: 0 3px;
+          margin-left: 5px;
           font-size: 12px;
           font-weight: bold;
+          color: #333333;
+          border: 2px solid #333333;
           border-radius: 5px;
-          border: 2px solid #333;
-          color: #333;
-          margin-left: 5px;
 
           &.movie {
             background: #f9c817;
@@ -165,9 +165,9 @@ const LiContainer = styled.li`
         }
       }
 
-      .content_bookmark {
-        padding: 10px 0;
+      .contentBookmark {
         height: 40px;
+        padding: 10px 0;
 
         svg {
           width: 40px;

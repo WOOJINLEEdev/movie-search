@@ -40,7 +40,7 @@ const Container = styled.div`
   margin: 0 auto;
   color: ${(props) => props.theme.colors?.titleColor};
   background: ${(props) => props.theme.colors?.bgColor};
-  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 20%);
 `;
 
 const Footer = styled.footer`

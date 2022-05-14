@@ -10,10 +10,10 @@ interface IProps {
 const SelectModal = ({ isBookmark, handleSelctBtnClick, handleCancelBtnClick }: IProps) => {
   return (
     <SelectContainer>
-      <button type='button' className='cancel_btn' onClick={handleCancelBtnClick}>
+      <button type='button' className='cancelBtn' onClick={handleCancelBtnClick}>
         취소
       </button>
-      <button type='button' className='select_btn' onClick={handleSelctBtnClick}>
+      <button type='button' className='selectBtn' onClick={handleSelctBtnClick}>
         {isBookmark === true ? '즐겨찾기 해제' : '즐겨찾기'}
       </button>
     </SelectContainer>
@@ -24,31 +24,31 @@ export default SelectModal;
 
 const SelectContainer = styled.div`
   position: absolute;
-  display: flex;
-  justify-content: space-evenly;
   right: 0;
   bottom: 10px;
+  display: flex;
+  justify-content: space-evenly;
   width: 30%;
   min-width: 180px;
 
-  .select_btn,
-  .cancel_btn {
+  .selectBtn,
+  .cancelBtn {
     width: 48%;
     height: 50px;
     padding: 10px 5px;
-    border-radius: 5px;
     font-size: 12px;
+    border-radius: 5px;
   }
 
-  .select_btn {
+  .selectBtn {
     width: 50%;
     max-width: 100px;
-    background: #008000;
     font-weight: bold;
-    color: #fff;
+    color: #ffffff;
+    background: #008000;
   }
 
-  .cancel_btn {
+  .cancelBtn {
     max-width: 100px;
     color: ${(props) => props.theme.colors?.titleColor};
     border: ${(props) => props.theme.colors?.borderColor};
@@ -63,8 +63,8 @@ const SelectContainer = styled.div`
       height: 70px;
     }
 
-    .select_btn,
-    .cancel_btn {
+    .selectBtn,
+    .cancelBtn {
       width: 100%;
       height: 30px;
       padding: 5px;

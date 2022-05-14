@@ -78,7 +78,7 @@ const List = ({ searchResults }: IProps) => {
 
   return (
     <ListContainer>
-      <div className='total_count'>
+      <div className='totalCount'>
         검색 결과 총 {Number(searchResults.totalResults) > 0 ? searchResults.totalResults : 0}개
       </div>
 
@@ -88,7 +88,7 @@ const List = ({ searchResults }: IProps) => {
             return <Item key={`search_${result.imdbID}`} result={result} />;
           })
         ) : (
-          <li className='result_no_data'>검색 결과가 없습니다.</li>
+          <li className='resultNoData'>검색 결과가 없습니다.</li>
         )}
         {pageNumber >= 2 && hasNextPage && <li className='skeleton_item' ref={infiniteRef} />}
       </ul>
@@ -99,16 +99,16 @@ const List = ({ searchResults }: IProps) => {
 export default List;
 
 const ListContainer = styled.div`
-  padding: 0 20px;
   width: calc(100% - 40px);
+  padding: 0 20px;
 
-  .total_count {
-    margin: 10px 0;
+  .totalCount {
+    margin: 10px 0 20px;
   }
 
-  .result_no_data {
-    text-align: center;
+  .resultNoData {
     min-height: calc(100vh - 262px);
     line-height: calc(100vh - 262px);
+    text-align: center;
   }
 `;

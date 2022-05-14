@@ -53,13 +53,13 @@ const SearchForm = () => {
       <input
         type='text'
         id='searchInput'
-        className='search_input'
+        className='searchInput'
         placeholder='Search...'
         value={search}
         ref={searchRef}
         onChange={handleSearchChange}
       />
-      <button type='submit' className='submit_btn' aria-label='Submit'>
+      <button type='submit' className='submitBtn' aria-label='Submit'>
         <BsSearch />
       </button>
     </FormContainer>
@@ -74,25 +74,25 @@ const FormContainer = styled.form`
   padding: 20px;
   margin: 0 auto;
 
-  .search_input {
+  .searchInput {
     width: 100%;
-    height: 30px;
-    border: 3px solid #efefef;
-    border-radius: 5px;
     max-width: calc(100% - 123px);
+    height: 30px;
     padding: 10px 97px 10px 20px;
     font-size: 20px;
-    background: ${(props) => props.theme.colors?.bgColor};
     color: ${(props) => props.theme.colors?.titleColor};
+    background: ${(props) => props.theme.colors?.bgColor};
+    border: 3px solid #efefef;
+    border-radius: 5px;
   }
 
-  .submit_btn {
+  .submitBtn {
     position: absolute;
+    top: 20px;
+    right: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
-    top: 20px;
-    right: 20px;
     width: 20%;
     max-width: 100px;
     height: 56px;
