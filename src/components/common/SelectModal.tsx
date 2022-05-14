@@ -1,13 +1,13 @@
 import { MouseEvent } from 'react';
 import styled from 'styled-components';
 
-interface ISelectModalProps {
+interface IProps {
   isBookmark: boolean;
   handleSelctBtnClick: () => void;
   handleCancelBtnClick: (e: MouseEvent<HTMLButtonElement>) => void;
 }
 
-const SelectModal = ({ isBookmark, handleSelctBtnClick, handleCancelBtnClick }: ISelectModalProps) => {
+const SelectModal = ({ isBookmark, handleSelctBtnClick, handleCancelBtnClick }: IProps) => {
   return (
     <SelectContainer>
       <button type='button' className='cancel_btn' onClick={handleCancelBtnClick}>

@@ -1,12 +1,9 @@
 import { useCallback, useEffect } from 'react';
-import { useRecoilState, atom } from 'recoil';
+import { useRecoilState } from 'recoil';
 
 import { dark, light } from 'styles/theme';
 
-export const themeStatus = atom({
-  key: 'themeStatus',
-  default: light,
-});
+import { themeStatus } from 'state';
 
 export const useTheme = () => {
   const [theme, setTheme] = useRecoilState(themeStatus);

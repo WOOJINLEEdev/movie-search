@@ -5,8 +5,8 @@ export const dark = {
     boxColor: '#808080',
     borderColor: '1px solid #e6e6e6',
     tabBorderColor: '3px solid #e6e6e6',
-    activeColor: '#f9c817',
     tabBgColor: 'rgba(0, 0, 0, 0.2)',
+    activeColor: '#f9c817',
   },
 };
 
@@ -17,7 +17,7 @@ export const light = {
     boxColor: '#fff',
     borderColor: '1px solid #e6e6e6',
     tabBorderColor: '3px solid #333',
-    activeColor: '#006400',
     tabBgColor: 'rgba(0, 0, 0, 0.1)',
+    activeColor: '#006400',
   },
 };

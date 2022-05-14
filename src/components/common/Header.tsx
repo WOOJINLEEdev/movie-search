@@ -1,10 +1,16 @@
 import { Link } from 'react-router-dom';
-import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
+import styled from 'styled-components';
 import { MdOutlineLightMode, MdDarkMode } from 'react-icons/md';
 
-import { useTheme, themeStatus } from 'hooks/useTheme';
+import { useTheme } from 'hooks/useTheme';
 import { light } from 'styles/theme';
+
+import { themeStatus } from 'state';
+
+interface IModeBtnProps {
+  onClick?: () => void;
+}
 
 const Header = () => {
   const { handleChangeTheme } = useTheme();
@@ -42,10 +48,6 @@ const HeaderContainer = styled.header`
     color: ${(props) => props.theme?.colors?.titleColor};
   }
 `;
-
-interface IModeBtnProps {
-  onClick?: () => void;
-}
 
 const ModeBtn = styled.button<IModeBtnProps>`
   min-width: 50px;

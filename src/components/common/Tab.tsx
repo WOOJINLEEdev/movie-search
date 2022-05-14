@@ -36,7 +36,6 @@ const UlContainer = styled.ul`
   height: 80px;
   margin: 0 auto;
   border-top: 1px solid rgba(0, 0, 0, 0.1);
-  /* background: rgba(0, 0, 0, 0.2); */
   background: ${(props) => props.theme.colors?.tabBgColor};
 
   .tab_item {

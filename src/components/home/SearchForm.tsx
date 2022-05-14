@@ -1,28 +1,12 @@
 import { useRef, FormEvent, ChangeEvent } from 'react';
-import { atom, useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { BsSearch } from 'react-icons/bs';
 
-import { hasNextPageState } from 'components/home/List';
 import { instance } from 'utils/http-client';
 import { handleError, ISearchResults } from 'utils/api';
 
-const defaultResultsState = { Search: [], Response: '', totalResults: '' };
-
-export const resultsState = atom<ISearchResults>({
-  key: '#resultsState',
-  default: defaultResultsState,
-});
-
-export const searchState = atom({
-  key: '#searchState',
-  default: '',
-});
-
-export const pageNumberState = atom({
-  key: '#pageNumberState',
-  default: 1,
-});
+import { hasNextPageState, resultsState, searchState, pageNumberState, defaultResultsState } from 'state';
 
 const SearchForm = () => {
   const searchRef = useRef<HTMLInputElement>(null);

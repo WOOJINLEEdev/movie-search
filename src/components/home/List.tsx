@@ -1,27 +1,23 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
-import { atom, useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import useInfiniteScroll from 'react-infinite-scroll-hook';
 
-import Item, { bookmarkState } from 'components/common/Item';
-import { pageNumberState, resultsState, searchState } from 'components/home/SearchForm';
+import Item from 'components/common/Item';
 import { instance } from 'utils/http-client';
 import { handleError, ISearch, ISearchResults } from 'utils/api';
 
-interface Props {
-  searchResults: ISearchResults;
-}
+import { pageNumberState, resultsState, searchState, bookmarkState, hasNextPageState } from 'state';
 
 export interface IResult extends ISearch {
   bookmark: boolean;
 }
 
-export const hasNextPageState = atom<boolean>({
-  key: '#hasNextPageState',
-  default: true,
-});
+interface IProps {
+  searchResults: ISearchResults;
+}
 
-const List = ({ searchResults }: Props) => {
+const List = ({ searchResults }: IProps) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [disabled, setDisabled] = useState<boolean>(false);
 
@@ -32,7 +28,10 @@ const List = ({ searchResults }: Props) => {
   const [results, setResults] = useRecoilState<ISearchResults>(resultsState);
 
   const addBookmarkInSearchResults = (searchResults?.Search ?? []).map((searchResult) => {
-    return { ...searchResult, bookmark: myBookmark.findIndex((item) => item.imdbID === searchResult.imdbID) >= 0 };
+    return {
+      ...searchResult,
+      bookmark: myBookmark.findIndex((item) => item.imdbID === searchResult.imdbID) >= 0,
+    };
   });
 
   const loadMore = async () => {
@@ -51,17 +50,7 @@ const List = ({ searchResults }: Props) => {
       const res = await getSearchResultsApi();
       const apiResults: ISearchResults = res.data;
 
-      // if (apiResults.Response === 'False' && apiResults.Error !== 'Movie not found!') {
-      //   setResults({ Search: [], Response: '', totalResults: '' });
-      //   throw new Error(apiResults.Error);
-      // }
-
-      // if (apiResults.Response === 'False' && apiResults.Error !== 'Too many results.') {
-      //   setResults({ Search: [], Response: '', totalResults: '' });
-      //   throw new Error(apiResults.Error);
-      // }
       handleError(apiResults);
-
       setResults((prevResults) => ({
         ...prevResults,
         Search: [...prevResults.Search, ...(apiResults.Search || [])],
@@ -96,7 +85,7 @@ const List = ({ searchResults }: Props) => {
       <ul>
         {searchResults.Search.length > 0 ? (
           addBookmarkInSearchResults.map((result: IResult) => {
-            return <Item key={result.imdbID} result={result} />;
+            return <Item key={`search_${result.imdbID}`} result={result} />;
           })
         ) : (
           <li className='result_no_data'>검색 결과가 없습니다.</li>

@@ -1,25 +1,23 @@
 import { MouseEvent, useState } from 'react';
-import { atom, useRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import store from 'store';
 import { HiOutlineBookmark } from 'react-icons/hi';
+import { DraggableProvided } from 'react-beautiful-dnd';
 
 import { IResult } from 'components/home/List';
 import SelectModal from 'components/common/SelectModal';
+import { bookmarkState } from 'state';
 
-export const bookmarkState = atom<IResult[]>({
-  key: '#bookmarkState',
-  default: store.get('bookmark') || [],
-});
-
-interface Props {
+interface IProps {
   result: IResult;
+  innerProvided?: DraggableProvided;
 }
 
-const Item = ({ result }: Props) => {
+const Item = ({ result, innerProvided }: IProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const [bookmark, setBookmark] = useRecoilState(bookmarkState);
+  const [bookmark, setBookmark] = useRecoilState<IResult[]>(bookmarkState);
 
   const handleResultItemClick = () => {
     setIsModalOpen((prev) => !prev);
@@ -51,7 +49,14 @@ const Item = ({ result }: Props) => {
   }
 
   return (
-    <LiContainer key={result.imdbID} className='result_item' onClick={handleResultItemClick}>
+    <LiContainer
+      key={result.imdbID}
+      className='result_item'
+      onClick={handleResultItemClick}
+      ref={innerProvided?.innerRef}
+      {...innerProvided?.draggableProps}
+      {...innerProvided?.dragHandleProps}
+    >
       <div className='result_content'>
         <img src={result.Poster} alt={result.Title} />
 
