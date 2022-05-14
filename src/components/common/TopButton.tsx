@@ -1,13 +1,37 @@
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { IoIosArrowUp } from 'react-icons/io';
 
 const TopButton = () => {
+  const [scrollY, setScrollY] = useState<boolean>(false);
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScrollY);
+
+    return () => {
+      window.removeEventListener('scroll', handleScrollY);
+    };
+  }, []);
+
+  function handleScrollY() {
+    if (window.scrollY > 299) {
+      setScrollY(true);
+    } else {
+      setScrollY(false);
+    }
+  }
+
   const handleTopBtnClick = () => {
     window.scrollTo(0, 0);
   };
 
   return (
-    <TopBtn type='button' className='tob_btn' onClick={handleTopBtnClick} aria-label='Top Button'>
+    <TopBtn
+      type='button'
+      className={scrollY ? 'tob_btn' : 'hidden'}
+      onClick={handleTopBtnClick}
+      aria-label='Top Button'
+    >
       <IoIosArrowUp />
     </TopBtn>
   );
@@ -28,28 +52,25 @@ const TopBtn = styled.button`
   border-radius: 50%;
   box-sizing: border-box;
   box-shadow: 3px 3px 15px 3px rgba(0, 0, 0, 0.2);
-  color: ${(props) => props.theme.colors?.titleColor};
-  background: ${(props) => props.theme.colors?.bgColor};
+  color: #333;
+  background: #efefef;
   padding: 0;
   z-index: 100;
   cursor: pointer;
-  opacity: 0;
+  opacity: 1;
+  transition: opacity 0.5s;
+  -webkit-transition: opacity 0.5s;
 
   svg {
     width: 25px;
     height: 25px;
   }
 
-  @media (hover: hover) {
-    &:hover {
-      background-color: #efefef;
-      transition: opacity 0.3s;
-      -webkit-transition: opacity 0.3s;
-      opacity: 1;
-    }
-
-    &:hover > svg {
-      fill: #333;
-    }
+  &.hidden {
+    background-color: #efefef;
+    opacity: 0;
+    transition: opacity 0.5s;
+    -webkit-transition: opacity 0.5s;
+    cursor: auto;
   }
 `;
