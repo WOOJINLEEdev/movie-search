@@ -3,8 +3,6 @@
 - React, Recoil, styled-components
 - react-infinite-scroll-hook, react-beautiful-dnd, store.js
 
-
-
 ## react-infinite-scroll-hook
 - Intersection Observer Api를 활용해 하단에 설정한 위치에 도달하게 되면 onLoadMore Prop에 전달한 함수를 호출함.
 ## react-beautiful-dnd
@@ -15,4 +13,6 @@
 
 
 
+## local에서 실행하는 방법
+- .env.development 파일에 REACT_APP_MOVIE_API_KEY 값 세팅.
 
