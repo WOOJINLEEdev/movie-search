@@ -5,6 +5,7 @@ import Loading from 'components/common/Loading';
 
 const Home = lazy(() => import('pages/Home'));
 const Bookmark = lazy(() => import('pages/Bookmark'));
+const PageNotFound = lazy(() => import('pages/PageNotFound'));
 
 const Main = () => {
   return (
@@ -13,6 +14,7 @@ const Main = () => {
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='bookmark' element={<Bookmark />} />
+          <Route path='*' element={<PageNotFound />} />
         </Routes>
       </Suspense>
     </main>
